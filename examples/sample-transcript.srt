@@ -1,0 +1,40 @@
+1
+00:00:00,054 --> 00:00:04,875
+These stretchy metals can cool their surroundings. Could this be the future of refrigeration? So
+
+2
+00:00:04,995 --> 00:00:10,617
+everything that has to do with refrigeration and air conditioning is done by vapor compression
+
+3
+00:00:10,856 --> 00:00:16,439
+technology, where this chemical refrigerant called hydrofluorocarbon, it absorbs and releases
+
+4
+00:00:16,599 --> 00:00:21,879
+latent heat. Except the problem is that hydrofluorocarbon, it's contributing
+
+5
+00:00:21,940 --> 00:00:27,382
+significantly to the global warming problem. And that's why we started
+
+6
+00:00:27,681 --> 00:00:33,476
+thinking that we can make cooling devices by stretching nickel titanium wire. So we stretch
+
+7
+00:00:33,536 --> 00:00:38,799
+it and it actually release heat and you unstretch it's cooling its surrounding.
+
+8
+00:00:39,661 --> 00:00:45,124
+But it hadn't been a prevalent phenomenon that was well known. So when we first
+
+9
+00:00:45,503 --> 00:00:49,767
+approached the Department of Energy they said, as far as we know, no such phenomenon
+
+10
+00:00:49,807 --> 00:00:53,529
+exists. And so that's when we said exactly, you should let us try it.
+

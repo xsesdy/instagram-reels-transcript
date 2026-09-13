@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-page-node-id="TRBEb6yEtkkEbrlpUB38oj">
+<head data-page-node-id="BxR2BwfvCK0upV0zZiF0om">
+<meta charset="UTF-8" data-page-node-id="WIsz9rbb3uxrtOWaQYNqzf">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="euYFPtZf7v27vJ7bpunyJW">
+<title>igscript.com — Instagram Video to Text</title>
+<meta name="description" content="Paste an Instagram link and turn the video's speech into text. Copy the transcript or download it as TXT or SRT subtitles." data-page-node-id="L0qxLmKm1x4UNAug2ZyDZ9">
+<link rel="canonical" href="https://igscript.com/" data-page-node-id="3jtFN28ZUtKBy7LDWy2qD9">
+<style>
+  :root { --bg:#f6f7f9; --card:#ffffff; --ink:#1a1d21; --sub:#5c6470; --line:#e5e8ec; --brand:#e1306c; --brand2:#833ab4; --ok:#0a8f4e; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; }
+  .wrap { max-width:720px; margin:0 auto; padding:32px 16px 64px; }
+  header { text-align:center; margin-bottom:28px; }
+  .logo { font-size:30px; font-weight:800; background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .tagline { color:var(--sub); font-size:14px; margin-top:8px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; box-shadow:0 1px 3px rgba(0,0,0,.04); }
+  label { display:block; font-size:14px; font-weight:600; margin-bottom:8px; }
+  .row { display:flex; gap:8px; }
+  input[type=text] { flex:1; border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-size:15px; outline:none; }
+  input[type=text]:focus { border-color:var(--brand); }
+  button { border:none; border-radius:10px; padding:12px 20px; font-size:15px; font-weight:600; cursor:pointer; }
+  .go { background:linear-gradient(45deg,#ee2a7b,#6228d7); color:#fff; white-space:nowrap; }
+  .go:disabled { opacity:.5; cursor:not-allowed; }
+  .status { margin-top:14px; font-size:14px; color:var(--sub); min-height:20px; }
+  .status.err { color:#c0392b; }
+  .result { margin-top:20px; display:none; }
+  textarea { width:100%; min-height:220px; border:1px solid var(--line); border-radius:10px; padding:14px; font-size:14px; line-height:1.7; resize:vertical; white-space:pre-wrap; }
+  .actions { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+  .act { background:#eef1f5; color:var(--ink); }
+  .act:hover { background:#e2e7ee; }
+  .tip { font-size:13px; color:var(--sub); margin-top:16px; line-height:1.7; }
+  footer { text-align:center; color:var(--sub); font-size:12px; margin-top:40px; }
+  footer a { color:var(--sub); }
+</style>
+</head>
+<body data-page-node-id="shcGU2yDH8F8AtMg5PGunm">
+<div class="wrap" data-page-node-id="HsTIIECrG4TTu9GUI0Y0ba">
+  <header data-page-node-id="5FfDOSTIZryRhCgXpjO1Dv">
+    <div class="logo" data-page-node-id="IhFIlBFU3JNn2CDWtCUZQY">igscript.com</div>
+    <div class="tagline" data-page-node-id="01hQiBjoSMB4tc7PJDzd0B">Paste an Instagram link, turn the video's speech into text</div>
+  </header>
+
+  <div class="card" data-page-node-id="fMeLFY0i9knKGgATMd7nl7">
+    <label for="url" data-page-node-id="vBDazjBgSBXJEYMO5L6pzD">Instagram link</label>
+    <div class="row" data-page-node-id="4zcEgdWHWTlz9eO6RBH92k">
+      <input type="text" id="url" placeholder="https://www.instagram.com/reel/..." autocomplete="off" data-page-node-id="Zbljj7WzTINp4p2NsKnoHI">
+      <button class="go" id="go" data-page-node-id="SFdAkkWkprLAMaVo2R0Jgb">Transcribe</button>
+    </div>
+    <div class="status" id="status" data-page-node-id="M8CySBrKbohIorGMavvDFu"></div>
+
+    <div class="result" id="result" data-page-node-id="wnCvbYgg5MCXJWDoQxFyhD">
+      <label for="out" data-page-node-id="omEm4RZzFG8q0UUkGZx7lG">Transcript</label>
+      <textarea id="out" spellcheck="false"></textarea>
+      <div class="actions" data-page-node-id="bhi0G2dW9ekiiVAZG2Z4m7">
+        <button class="act" id="copy" data-page-node-id="6dZgvbjgSZXw4D8Bz6mIKv">Copy</button>
+        <button class="act" id="txt" data-page-node-id="TETBOshDGiHpEm7RAfKY4V">Download TXT</button>
+        <button class="act" id="srt" data-page-node-id="O9keF1bLalUT3sI5vdpPSu">Download SRT</button>
+      </div>
+    </div>
+
+    <div class="tip" data-page-node-id="obpCFovwYOQJiHs91LPnot">
+      Supports Instagram video and Reels links. Transcription runs on the server — your link and results are never stored on this page.
+    </div>
+  </div>
+
+  <footer data-page-node-id="zJDdoD8DM8fPxHpiIEjYHK"><a href="/instagram-to-text.html">Instagram to Text</a> · <a href="/instagram-transcript-generator.html">Transcript Generator</a> · <a href="/instagram-reels-transcript.html">Reels Transcript</a> · <a href="/transcribe-instagram-video.html">Transcribe Video</a><br>© Xsesdy · igscript.com · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy</a> · <a href="/contact.html">Contact</a> · <a href="/sitemap.xml" data-page-node-id="hEGCYCGkhTk7ZWV1Zv1fQn">Sitemap</a></footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let lastSegments = [];
+
+$('go').addEventListener('click', async () => {
+  const url = $('url').value.trim();
+  const status = $('status');
+  if (!url) { status.textContent = 'Paste an Instagram link first'; status.className = 'status err'; return; }
+  $('go').disabled = true;
+  status.className = 'status';
+  status.textContent = 'Extracting the video and transcribing — usually takes 10-60 seconds. Please keep this page open…';
+  $('result').style.display = 'none';
+  try {
+    const r = await fetch('/api/transcript', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url })
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(data.error || ('HTTP ' + r.status));
+    lastSegments = data.segments || [];
+    const text = data.text || '';
+    if (!text) throw new Error('No speech detected in this video');
+    $('out').value = text;
+    status.textContent = 'Done';
+    $('result').style.display = 'block';
+  } catch (e) {
+    status.textContent = 'Transcription failed: ' + e.message;
+    status.className = 'status err';
+  } finally {
+    $('go').disabled = false;
+  }
+});
+
+function fmtTime(sec, srt) {
+  const h = String(Math.floor(sec/3600)).padStart(2,'0');
+  const m = String(Math.floor(sec%3600/60)).padStart(2,'0');
+  const s = String(Math.floor(sec%60)).padStart(2,'0');
+  const ms = String(Math.floor((sec%1)*1000)).padStart(3,'0');
+  return srt ? h+':'+m+':'+s+','+ms : h+':'+m+':'+s;
+}
+function download(name, content) {
+  const blob = new Blob([content], { type:'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name; a.click();
+  URL.revokeObjectURL(a.href);
+}
+$('copy').addEventListener('click', async () => {
+  await navigator.clipboard.writeText($('out').value);
+  $('copy').textContent = 'Copied';
+  setTimeout(() => $('copy').textContent = 'Copy', 1500);
+});
+$('txt').addEventListener('click', () => download('transcript.txt', $('out').value));
+$('srt').addEventListener('click', () => {
+  const srt = lastSegments.map((s,i) =>
+    (i+1)+'\n'+fmtTime(s.start,true)+' --> '+fmtTime(s.end||s.start+2,true)+'\n'+(s.text||'').trim()+'\n'
+  ).join('\n');
+  download('transcript.srt', srt || $('out').value);
+});
+</script>
+</body>
+</html>
