@@ -3,8 +3,8 @@
 <head data-page-node-id="BxR2BwfvCK0upV0zZiF0om">
 <meta charset="UTF-8" data-page-node-id="WIsz9rbb3uxrtOWaQYNqzf">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="euYFPtZf7v27vJ7bpunyJW">
-<title>igscript.com — Instagram Video to Text</title>
-<meta name="description" content="Paste an Instagram link and turn the video's speech into text. Copy the transcript or download it as TXT or SRT subtitles." data-page-node-id="L0qxLmKm1x4UNAug2ZyDZ9">
+<title>igscript.com — Instagram Video Tools</title>
+<meta name="description" content="igscript.com is a free web tool by Xsesdy. Paste a link, get the spoken words back instantly, copy them or download as TXT or SRT." data-page-node-id="L0qxLmKm1x4UNAug2ZyDZ9">
 <link rel="canonical" href="https://igscript.com/" data-page-node-id="3jtFN28ZUtKBy7LDWy2qD9">
 <style>
   :root { --bg:#f6f7f9; --card:#ffffff; --ink:#1a1d21; --sub:#5c6470; --line:#e5e8ec; --brand:#e1306c; --brand2:#833ab4; --ok:#0a8f4e; }
@@ -64,68 +64,11 @@
     </div>
   </div>
 
-  <footer data-page-node-id="zJDdoD8DM8fPxHpiIEjYHK"><a href="/instagram-to-text.html">Instagram to Text</a> · <a href="/instagram-transcript-generator.html">Transcript Generator</a> · <a href="/instagram-reels-transcript.html">Reels Transcript</a> · <a href="/transcribe-instagram-video.html">Transcribe Video</a><br>© Xsesdy · igscript.com · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy</a> · <a href="/contact.html">Contact</a> · <a href="/sitemap.xml" data-page-node-id="hEGCYCGkhTk7ZWV1Zv1fQn">Sitemap</a></footer>
+  <footer data-page-node-id="zJDdoD8DM8fPxHpiIEjYHK"><a href="/instagram-to-text">Instagram to Text</a> · <a href="/tiktok-transcript">TikTok Transcript</a> · <a href="/youtube-transcript">YouTube Transcript</a> · <a href="/facebook-video-transcript">Facebook Video Transcript</a> · <a href="/twitter-video-transcript">Twitter Video Transcript</a><br>© Xsesdy · igscript.com · <a href="/about">About</a> · <a href="/privacy">Privacy</a> · <a href="/contact">Contact</a> · <a href="/sitemap.xml" data-page-node-id="hEGCYCGkhTk7ZWV1Zv1fQn">Sitemap</a></footer>
 </div>
 
-<script>
-const $ = id => document.getElementById(id);
-let lastSegments = [];
-
-$('go').addEventListener('click', async () => {
-  const url = $('url').value.trim();
-  const status = $('status');
-  if (!url) { status.textContent = 'Paste an Instagram link first'; status.className = 'status err'; return; }
-  $('go').disabled = true;
-  status.className = 'status';
-  status.textContent = 'Extracting the video and transcribing — usually takes 10-60 seconds. Please keep this page open…';
-  $('result').style.display = 'none';
-  try {
-    const r = await fetch('/api/transcript', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url })
-    });
-    const data = await r.json().catch(() => ({}));
-    if (!r.ok) throw new Error(data.error || ('HTTP ' + r.status));
-    lastSegments = data.segments || [];
-    const text = data.text || '';
-    if (!text) throw new Error('No speech detected in this video');
-    $('out').value = text;
-    status.textContent = 'Done';
-    $('result').style.display = 'block';
-  } catch (e) {
-    status.textContent = 'Transcription failed: ' + e.message;
-    status.className = 'status err';
-  } finally {
-    $('go').disabled = false;
-  }
-});
-
-function fmtTime(sec, srt) {
-  const h = String(Math.floor(sec/3600)).padStart(2,'0');
-  const m = String(Math.floor(sec%3600/60)).padStart(2,'0');
-  const s = String(Math.floor(sec%60)).padStart(2,'0');
-  const ms = String(Math.floor((sec%1)*1000)).padStart(3,'0');
-  return srt ? h+':'+m+':'+s+','+ms : h+':'+m+':'+s;
-}
-function download(name, content) {
-  const blob = new Blob([content], { type:'text/plain;charset=utf-8' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob); a.download = name; a.click();
-  URL.revokeObjectURL(a.href);
-}
-$('copy').addEventListener('click', async () => {
-  await navigator.clipboard.writeText($('out').value);
-  $('copy').textContent = 'Copied';
-  setTimeout(() => $('copy').textContent = 'Copy', 1500);
-});
-$('txt').addEventListener('click', () => download('transcript.txt', $('out').value));
-$('srt').addEventListener('click', () => {
-  const srt = lastSegments.map((s,i) =>
-    (i+1)+'\n'+fmtTime(s.start,true)+' --> '+fmtTime(s.end||s.start+2,true)+'\n'+(s.text||'').trim()+'\n'
-  ).join('\n');
-  download('transcript.srt', srt || $('out').value);
-});
-</script>
+<script src="/assets/tool.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"43e2e4b028c64e8c85b251ea7b2ef00d","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
+
