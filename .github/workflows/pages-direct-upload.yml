@@ -1,0 +1,46 @@
+name: Deploy Pages production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: igscript-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out production source
+        uses: actions/checkout@v4
+
+      - name: Deploy the complete Pages source
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --yes wrangler@3 pages deploy . --project-name=igscript --branch=main
+
+      - name: Verify public pages
+        run: |
+          curl --fail --silent --show-error https://igscript.com/privacy > /dev/null
+          curl --fail --silent --show-error https://igscript.com/terms > /dev/null
+          curl --fail --silent --show-error https://igscript.com/sitemap.xml > /dev/null
+
+      - name: Verify API baseline
+        run: |
+          check_status() {
+            expected="$1"
+            endpoint="$2"
+            actual=$(curl --silent --output /dev/null --write-out "%{http_code}" --request POST --header "Content-Type: application/json" --data '{}' "https://igscript.com${endpoint}")
+            test "$actual" = "$expected"
+          }
+          check_status 400 /api/transcript
+          check_status 200 /api/pro-status
+          check_status 200 /api/pro-create-order
+          check_status 400 /api/pro-activate
+          check_status 405 /api/usage
