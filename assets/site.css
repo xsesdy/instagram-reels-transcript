@@ -23,6 +23,9 @@ textarea { width:100%; min-height:220px; border:1px solid var(--line); border-ra
 .act:hover { background:#e2e7ee; }
 .tip { font-size:13px; color:var(--sub); margin-top:16px; line-height:1.7; }
 h1.page { font-size:24px; line-height:1.4; margin:0 0 16px; }
+.crumbs { font-size:13px; color:var(--sub); margin-bottom:10px; }
+.crumbs a { color:var(--sub); }
+.crumbs span { color:var(--ink); }
 article { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px; line-height:1.8; font-size:15px; margin-top:24px; }
 article h2 { font-size:18px; margin:20px 0 8px; }
 article h2:first-child { margin-top:0; }
