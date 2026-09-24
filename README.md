@@ -1,36 +1,25 @@
-# Instagram Reels Transcript — open-source tool
+# igscript.com production source
 
-A small, no-frills tool that turns an Instagram video or Reel into text: paste a link, get the spoken words as a transcript, copy it or download it as TXT or SRT subtitles.
+This branch is a snapshot of the complete Cloudflare Pages deployment source for igscript.com as of September 25, 2026. It includes the static site, Pages Functions, `_routes.json`, redirects, assets, and the live legal pages.
 
-**Live tool: [igscript.com](https://igscript.com)** — free, no signup.
+## Deploy
 
-## What's in this repo
+Deploy from this repository root so that the static assets and Pages Functions are uploaded together:
 
-| Path | What it is |
-|---|---|
-| `src/index.html` | Single-page frontend: link input + transcript output with Copy / TXT / SRT export |
-| `src/tool.js` | The widget logic (fetch, segmented output, SRT assembly, downloads) |
-| `src/site.css` | Shared styles for the tool pages |
-| `src/transcript.pages-function.js` | The Cloudflare Pages Function behind `POST /api/transcript` |
-| `examples/sample-transcript.json` | Raw API response from a real transcription run (public Reel, English) |
-| `examples/sample-transcript.txt` | The same transcript as plain text |
-| `examples/sample-transcript.srt` | The same transcript assembled as SRT subtitles |
-| `examples/sample-transcript.csv` | The same segments as CSV (index, start, end, text) |
+```bash
+npx wrangler pages deploy . --project-name=igscript
+```
 
-## How it works
+The Cloudflare Pages project supplies its environment variables. Do not commit credentials, API keys, OAuth client files, access tokens, or `.dev.vars` files.
 
-1. The frontend posts the Instagram URL to a Cloudflare Pages Function.
-2. The server-side function calls a third-party transcript API with the URL.
-3. The API returns timed segments; the function normalizes them to `{ text, segments[] }` and the widget renders text + SRT.
+## Verification
 
-**The upstream API key is never exposed** — it lives in server-side environment variables only (`SUPADATA_API_KEY`). Nothing is stored: links and transcripts exist only in the visitor's browser session.
+After a deployment, verify the public pages and the API baseline:
 
-## Run your own
+- `POST /api/transcript` returns 400 without a required input.
+- `POST /api/pro-status` returns 200.
+- `POST /api/pro-create-order` returns 200.
+- `POST /api/pro-activate` returns 400 without required input.
+- `POST /api/usage` returns 405.
 
-1. Create a Cloudflare Pages project and deploy the `src/` files (Functions directory layout: `functions/api/transcript.js`).
-2. Set the `SUPADATA_API_KEY` environment variable in the Pages project settings (get a key from your transcript API provider).
-3. Bind your domain, done.
-
-## License
-
-MIT — use it, fork it, ship it.
+The privacy and terms pages are available at `/privacy` and `/terms`.

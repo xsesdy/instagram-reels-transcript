@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>igscript Pro — More transcriptions, longer videos | igscript.com</title>
+<meta name="description" content="igscript Pro: 300 credits a month, videos up to 60 minutes, batch links. Free use stays free at 3 transcriptions a day.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://igscript.com/upgrade">
+<style>
+  :root { --bg:#f6f7f9; --card:#ffffff; --ink:#1a1d21; --sub:#5c6470; --line:#e5e8ec; --brand:#e1306c; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; }
+  .wrap { max-width:720px; margin:0 auto; padding:32px 16px 64px; }
+  .logo { font-size:24px; font-weight:800; text-decoration:none; background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:28px; margin-top:20px; box-shadow:0 1px 3px rgba(0,0,0,.04); }
+  h1 { font-size:22px; margin-bottom:12px; }
+  h2 { font-size:16px; margin:20px 0 8px; }
+  p, li { font-size:14px; line-height:1.8; color:var(--ink); }
+  ul { padding-left:20px; }
+  table { width:100%; border-collapse:collapse; margin-top:10px; font-size:14px; }
+  th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { font-size:13px; color:var(--sub); font-weight:600; }
+  td:first-child { color:var(--sub); width:38%; }
+  .price { font-size:28px; font-weight:800; margin-top:6px; }
+  .price small { font-size:14px; font-weight:400; color:var(--sub); }
+  .btn { display:inline-block; margin-top:16px; background:linear-gradient(45deg,#ee2a7b,#6228d7); color:#fff; text-decoration:none; font-weight:600; font-size:15px; padding:12px 28px; border-radius:10px; border:none; cursor:not-allowed; opacity:.55; }
+  .note { margin-top:10px; font-size:13px; color:var(--sub); }
+  a { color:var(--brand); }
+  .muted { color:var(--sub); font-size:13px; margin-top:8px; }
+  nav { margin-top:24px; font-size:13px; }
+  nav a { color:var(--sub); margin-right:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="logo" href="/">igscript.com</a>
+  <div class="card">
+    <h1>igscript Pro</h1>
+    <p>Everything in Free — just more of it. The transcription quality, TXT and SRT downloads are exactly the same on both plans. Pro only adds volume.</p>
+
+    <div class="price">$5 <small>/ 30 days</small></div>
+
+    <table>
+      <tr><th></th><th>Free</th><th>Pro — $5 / 30 days</th></tr>
+      <tr><td>Transcriptions</td><td>3 per day</td><td>300 credits per 30 days</td></tr>
+      <tr><td>Video length</td><td>Up to 10 minutes</td><td>Up to 60 minutes</td></tr>
+      <tr><td>Batch links</td><td>One at a time</td><td>Up to 10 links at once *</td></tr>
+      <tr><td>Copy / TXT / SRT</td><td>Included</td><td>Included</td></tr>
+    </table>
+    <p class="muted">One-time purchase, no auto-renewal — when your 30 days or credits run out, come back and buy another pass. Your credits live in your browser on this device.</p>
+
+    <h2>What is a credit?</h2>
+    <ul>
+      <li>1 credit ≈ one transcription of a video that already has captions.</li>
+      <li>Videos without captions are transcribed with AI: 2 credits per minute of video.</li>
+      <li>So 300 credits ≈ <strong>300 captioned transcriptions</strong> or about <strong>150 minutes</strong> of AI-generated transcription per month.</li>
+    </ul>
+    <p class="muted">* Batch submissions are still limited by your monthly credit balance — ten links at once can use a large share of it if the videos have no captions.</p>
+
+    <div id="paypal-buttons"></div>
+    <p class="note" id="pp-note">Payment is processed by PayPal. If anything goes wrong after paying, contact us with your PayPal receipt.</p>
+
+    <h2>Questions?</h2>
+    <p>Reach us via the <a href="/contact">contact page</a>.</p>
+  </div>
+  <nav>
+    <a href="/">Home</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a>
+  </nav>
+</div>
+<script src="https://www.paypal.com/sdk/js?client-id=BAA1BnvIV3e_3kiIv14k5ufSspWD1eKBhJLjTDnGCPgQ_RPfYH4_c_wLjQSaxEIA4cTi8kzeqTX348M8gw&currency=USD&intent=capture&components=buttons&disable-funding=credit"></script>
+<script>
+(function () {
+  var note = document.getElementById('pp-note');
+  function done(msg) { note.textContent = msg; }
+
+  if (window.paypal && paypal.Buttons) {
+    paypal.Buttons({
+      style: { layout: 'vertical', shape: 'rect', color: 'gold', label: 'paypal' },
+      createOrder: function () {
+        return fetch('/api/pro-create-order', { method: 'POST' })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (!d.id) throw new Error(d.error || 'order failed');
+            return d.id;
+          });
+      },
+      onApprove: function (data) {
+        done('Verifying your payment…');
+        return fetch('/api/pro-activate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ orderID: data.orderID })
+        }).then(function (r) { return r.json(); }).then(function (d) {
+          if (d.pass) {
+            try { localStorage.setItem('igscript_pass', d.pass); } catch (e) {}
+            done('Pro activated! Your 30-day pass is saved in this browser — head back to the tool and it will pick it up automatically.');
+            var b = document.createElement('a');
+            b.href = '/'; b.textContent = 'Start transcribing →';
+            b.style.cssText = 'display:inline-block;margin-top:10px;font-weight:600;';
+            note.parentNode.insertBefore(b, note.nextSibling);
+          } else {
+            done(d.error || 'Activation failed — if you were charged, contact us with your PayPal receipt.');
+          }
+        }).catch(function () {
+          done('Activation failed — if you were charged, contact us with your PayPal receipt.');
+        });
+      },
+      onError: function () { done('Something went wrong starting the payment. Please try again.'); }
+    }).render('#paypal-buttons');
+  } else {
+    done('Payment buttons are loading… if they never appear, try refreshing or contact us.');
+  }
+})();
+</script>
+</body>
+</html>
