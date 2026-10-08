@@ -78,4 +78,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-</urlset>
+  <url>
+    <loc>https://igscript.com/instagram-reel-text-timing</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url></urlset>
