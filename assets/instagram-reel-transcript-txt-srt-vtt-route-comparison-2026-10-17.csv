@@ -1,0 +1,8 @@
+Route,Formats,Observed result,Where it stopped or what it returned
+Public Reel DHcE4lVs-Oe (October 17 rerun),TXT and SRT,Working,Returned a Spanish transcript with 23 time segments; TXT and SRT samples on the page come from this result.
+Public Reel DHcE4lVs-Oe (October 9 check),TXT and SRT after a transcript exists,Not working,Stopped before a transcript was returned: HTTP 502.
+Public Reel DHY5hTFSBf0,TXT and SRT after a transcript exists,Not working,Stopped before a transcript was returned: HTTP 502.
+Public Reel DWE2nlCpn63,TXT and SRT after a transcript exists,Not working,Stopped before a transcript was returned: HTTP 502.
+Public Reel DGVONeLIr4V,TXT and SRT after a transcript exists,Not working,Stopped before a transcript was returned: HTTP 502.
+Public Reel C_reb4NN0ee,TXT and SRT after a transcript exists,Not working,Stopped before a transcript was returned: HTTP 502.
+VTT download from this page,VTT,Not working,Stopped before a file can be created: this page has no VTT download path.
